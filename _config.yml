@@ -1,0 +1,28 @@
+title: All you need to know about ...
+description: >- 
+  Hi there! This is a blog to share with you my awesome finding about technology topics, ranging from web, security to programming language and AI.
+baseurl: ""
+url: ""
+
+theme: just-the-docs
+plugins:
+  - jekyll-feed
+
+permalink: pretty
+
+just_the_docs:
+  navigation:
+    order: true
+  toc:
+    enabled: true
+    heading_level: 2
+
+exclude:
+  - vendor
+  - vendor/bundle
+  - .bundle
+  - "*.gemspec"
+  - "*.gem"
+  - "Gemfile"
+  - "Gemfile.lock"
+  - "README.md"

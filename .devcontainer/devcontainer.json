@@ -1,0 +1,12 @@
+{
+  "name": "Jekyll (GitHub Pages)",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "postCreateCommand": "bundle config set path 'vendor/bundle' && bundle install",
+  "forwardPorts": [4000, 35729],
+  "portsAttributes": {
+    "4000": { "label": "Jekyll Site" },
+    "35729": { "label": "LiveReload" }
+  }
+}
