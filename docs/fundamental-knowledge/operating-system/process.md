@@ -351,7 +351,6 @@ func (s *server) handleRequest(conn net.Conn) {
    b. Heap
 
    c. Shared memory segments
-5. 
 
 ## Reference
 - [Golang process and shared memory](https://stackoverflow.com/questions/41322376/golang-processes-and-shared-memory)
