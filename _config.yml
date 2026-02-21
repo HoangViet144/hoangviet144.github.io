@@ -26,3 +26,5 @@ exclude:
   - "Gemfile"
   - "Gemfile.lock"
   - "README.md"
+
+ga_tracking: G-S290TDWDZL

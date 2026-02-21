@@ -12,4 +12,3 @@ permalink: /
 Hi there!
 Welcome to my blog. This is a place for sharing my findings about any interesting technology topics.
 {: .fs-6 .fw-300 }
-
