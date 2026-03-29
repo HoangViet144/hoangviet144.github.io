@@ -5,7 +5,7 @@ parent: Operating system
 nav_order: 5
 ---
 
-# Buttons
+# Thread
 {: .no_toc }
 
 ## Table of contents
@@ -16,80 +16,48 @@ nav_order: 5
 
 ---
 
-## Basic button styles
+## Overview
+A thread is a basic unit of CPU utilization; it comprises a thread ID, a program
+counter (PC), a register set, and a stack. It shares with other threads belonging
+to the same process its code section, data section, and other operating-system
+resources, such as open files and signals. 
 
-### Links that look like buttons
+![img.png](/asset/image/operating-system/multi-thread-vs-single-thread.png)
 
-<div class="code-example" markdown="1">
-[Link button](http://example.com/){: .btn }
+Benefits of multi-threading are:
+- Responsiveness: the application continues to response to user while let another thread handles heavy task
+- Resource sharing: share the same data and code and heap memory
+- Economy: faster context switch, creation time
+- Scalability: can run on multiple core
 
-[Link button](http://example.com/){: .btn .btn-purple }
-[Link button](http://example.com/){: .btn .btn-blue }
-[Link button](http://example.com/){: .btn .btn-green }
+## Concurrency vs parallelism
+Concurrency is the ability to run multiple tasks by rapidly switching between processes, allowing each process to make progress
+![img.png](/asset/image/operating-system/concurrency.png)
 
-[Link button](http://example.com/){: .btn .btn-outline }
-</div>
-```markdown
-[Link button](http://example.com/){: .btn }
+Parallelism is the ability to run mulple tasks simultaneously by letting processes run on different cores
+![img.png](/asset/image/operating-system/parallelism.png)
 
-[Link button](http://example.com/){: .btn .btn-purple }
-[Link button](http://example.com/){: .btn .btn-blue }
-[Link button](http://example.com/){: .btn .btn-green }
+A system with a single core only supports concurrency. 
 
-[Link button](http://example.com/){: .btn .btn-outline }
-```
+## Amdahl’S law
+Amdahl’s Law is a formula that identifies potential performance gains from adding additional computing cores to an application that has both serial
+(nonparallel) and parallel components. If S is the portion of the application that must be performed serially on a system with N processing cores, the formula appears as follows:
 
-### Button element
+$$
+speedup \leq \frac{1}{S + \frac{1-S}{N}}
+$$
 
-GitHub Flavored Markdown does not support the `button` element, so you'll have to use inline HTML for this:
+As N approaches infinity, the speedup converges to 1∕S.
 
-<div class="code-example">
-<button type="button" name="button" class="btn">Button element</button>
-</div>
-```html
-<button type="button" name="button" class="btn">Button element</button>
-```
+## Multithreading model
+When a process is running, it runs in the userspace, where all resources are restricted and limited (ie. it cannot access memory of other process, etc)
+When a process needs to interact with the hardware (IO, network, etc), it needs to make a system call to kernel space. 
+Kernel space is the place to manage all resources and the kernel space also has kernel thread as well.
 
----
-
-## Using utilities with buttons
-
-### Button size
-
-
-<div class="code-example" markdown="1">
-<span class="fs-6">
-[Big ass button](http://example.com/){: .btn }
-</span>
-
-<span class="fs-3">
-[Tiny ass button](http://example.com/){: .btn }
-</span>
-</div>
-```markdown
-<span class="fs-8">
-[Link button](http://example.com/){: .btn }
-</span>
-
-<span class="fs-3">
-[Tiny ass button](http://example.com/){: .btn }
-</span>
-```
-
-### Spacing between buttons
-
-
-<div class="code-example" markdown="1">
-[Button with space](http://example.com/){: .btn .btn-purple .mr-2 }
-[Button ](http://example.com/){: .btn .btn-blue .mr-2 }
-
-[Button with more space](http://example.com/){: .btn .btn-green .mr-4 }
-[Button ](http://example.com/){: .btn .btn-blue }
-</div>
-```markdown
-[Button with space](http://example.com/){: .btn .btn-purple .mr-2 }
-[Button ](http://example.com/){: .btn .btn-blue }
-
-[Button with more space](http://example.com/){: .btn .btn-green .mr-4 }
-[Button ](http://example.com/){: .btn .btn-blue }
-```
+There are 3 types of relationship between user threads and kernel threads:
+- Many-to-one: this model appears in old systems where a system call may block entire kernel thread 
+![img.png](/asset/image/operating-system/thread-many-to-one.png)
+- One-to-one: Linux and window use this kind of model. The drawback is that when a user thread is created, a kernel thread is spawn, which may burden the performance of the sytem
+![img.png](/asset/image/operating-system/thread-one-to-one.png)
+- Many-to-many
+![img.png](/asset/image/operating-system/thread-many-to-many.png)
